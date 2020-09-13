@@ -1,14 +1,36 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useContext } from 'react'
+import styled from 'styled-components'
 import readAndUploadFile from '../../../utils/filereader'
+import { DataFrame } from 'data-forge'
+import ActiveDataframe from '../../../context/dataframe'
 //import { FileUpload, Button } from '@patternfly/react-core'
 //import { Dataset } from '../../../types'
 
-const FileDisplay: FunctionComponent<any> = ({ name, size }) => {
-  return <div></div>
-}
+const FileInfoStyler = styled.div`
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+`
 
 const DataAddFileView: FunctionComponent = () => {
   const [file, setFile] = useState<File | null>(null)
+  //const [dataframe, setDataframe] = useState<null | DataFrame>(null)
+  const [error, throwError] = useState<null | Error>(null)
+
+  const [dataframe, setDataframe] = useContext(ActiveDataframe)
+
+  if (error) {
+    return (
+      <div>
+        <h2>Something went wrong</h2>
+        <p>{error.message}</p>
+        <p>Please contact our support at samuel@explot.io about the issue</p>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -23,22 +45,24 @@ const DataAddFileView: FunctionComponent = () => {
           }}
         />
       </form>
-      <div>
+      <FileInfoStyler>
         <h2>{file?.name}</h2>
         <p>{file?.size}</p>
+        <p>{file?.type}</p>
         <button onClick={() => setFile(null)}>Clear</button>
         <button
           onClick={() => {
-            console.log('called', file)
             // do the file parsing here
             if (file) {
               readAndUploadFile(file)
+                .then((res) => setDataframe(res))
+                .catch((e) => throwError(e))
             }
           }}
         >
           Upload
         </button>
-      </div>
+      </FileInfoStyler>
     </div>
   )
 }

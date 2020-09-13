@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import DataViewContainer from './data-view/dataViewContainer'
 import ChartContainer from './chart-view/chartContainer'
 import { ChartConfig } from '../../types/types'
+import ActiveDataframe from '../../context/dataframe'
 
 type CellContainerProps = {
   allSavedFiles: any[]
@@ -42,6 +43,9 @@ const CellContainer: FunctionComponent<CellContainerProps> = ({
   const [activeDataset, editActiveDataset] = useState(null)
   const [chartConfig, setChartConfig] = useState<ChartConfig | null>(null)
 
+  // Hook that sets the dataframe context (pass it as the value of the provider to get the setFunctin working)
+  const dataframeHook = useState(null)
+
   const chartCSS = chartConfig
     ? 'chart-view flex-grow md:w-4/5'
     : 'chart-view md:w-1/2'
@@ -51,22 +55,24 @@ const CellContainer: FunctionComponent<CellContainerProps> = ({
 
   return (
     <CellContainerStyle className='cell-container bg-light-green md:flex my-4 mx-auto overflow-hidden flex-column'>
-      <div className={dataCSS}>
-        <DataViewContainer
-          allSavedFiles={allSavedFiles}
-          activeDataset={activeDataset}
-          editActiveDataset={editActiveDataset}
-          setActiveId={setActiveId}
-          id={fileId}
-        />
-      </div>
-      <div className={chartCSS}>
-        <ChartContainer
-          chartConfig={chartConfig}
-          setChartConfig={setChartConfig}
-          activeDataset={activeDataset}
-        />
-      </div>
+      <ActiveDataframe.Provider value={dataframeHook}>
+        <div className={dataCSS}>
+          <DataViewContainer
+            allSavedFiles={allSavedFiles}
+            activeDataset={activeDataset}
+            editActiveDataset={editActiveDataset}
+            setActiveId={setActiveId}
+            id={fileId}
+          />
+        </div>
+        <div className={chartCSS}>
+          <ChartContainer
+            chartConfig={chartConfig}
+            setChartConfig={setChartConfig}
+            activeDataset={activeDataset}
+          />
+        </div>
+      </ActiveDataframe.Provider>
     </CellContainerStyle>
   )
 }

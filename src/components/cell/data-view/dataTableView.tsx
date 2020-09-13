@@ -1,10 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import * as df from 'data-forge'
 
-const DataTableView: FunctionComponent<any> = ({
-  dataset,
-  setActiveDataset,
-}) => {
+const DataTableView: FunctionComponent<any> = ({ dataset }) => {
   const jsonData = new df.DataFrame(dataset).toJSON()
   const data = JSON.parse(jsonData)
 
@@ -15,7 +12,11 @@ const DataTableView: FunctionComponent<any> = ({
     return Object.values(el).map((item, i) => item)
   })
 
-  return <div></div>
+  return (
+    <div>
+      <h1>Table View!</h1>
+    </div>
+  )
 }
 
 export default DataTableView

@@ -1,11 +1,8 @@
 import * as dataforge from 'data-forge'
 
-const readAndUploadFile = async (
-  file: File
-): Promise<dataforge.DataFrame | Error> => {
+const readAndUploadFile = async (file: File): Promise<dataforge.DataFrame> => {
   const reader = new FileReader()
-  console.log('reader called')
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     reader.onload = () => {
       const result = <string>reader.result
       const dataframe = dataforge.fromCSV(result, {
@@ -16,8 +13,7 @@ const readAndUploadFile = async (
 
     reader.onerror = () => {
       reader.abort()
-      const error = new Error('Error reading file')
-      reject(error)
+      throw new Error('Error reading file')
     }
 
     reader.readAsText(file)
