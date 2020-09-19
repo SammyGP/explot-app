@@ -1,8 +1,11 @@
-import React, { useState, FunctionComponent } from 'react'
+import React, { useState, FunctionComponent, useContext } from 'react'
 import ChartChooseChartView from './chartChooseChartView'
 import ChartGraphView from './chartGraphView'
 import ChartSetOptionsView from './chartSetOptionsView'
 import Loading from '../../loading'
+import ActiveDataframe from '../../../context/dataframe'
+import { DataFrame } from 'data-forge'
+import styled from 'styled-components'
 
 /**
  * Routes to the correct Chart
@@ -10,34 +13,37 @@ import Loading from '../../loading'
 const ChartContainer: FunctionComponent<any> = ({
   chartConfig,
   setChartConfig,
-  activeDataset,
+  width,
 }) => {
-  const [view, setView] = useState(1)
+  const [view, setView] = useState(0)
   const [chartType, setChartType] = useState(null)
+  const [dataframe] = useContext(ActiveDataframe)
 
-  if (!activeDataset) {
+  if (!dataframe) {
     return (
-      <div className='h-full'>
-        <h2 className='pt-8 mx-4'>Choose a Dataset to view chart options</h2>
+      <div>
+        <div className='h-full'>
+          <h2 className='pt-8 mx-4'>Upload a Dataset to view chart options</h2>
+        </div>
       </div>
     )
   }
-
-  if (view === 0) {
-    return <div>Chart go here</div>
-  }
-  if (view === 1) {
+  if (dataframe && view === 0) {
     return (
-      <ChartChooseChartView setView={setView} setChartType={setChartType} />
+      <div>
+        <ChartChooseChartView setView={setView} setChartType={setChartType} />
+      </div>
     )
   }
-  if (view === 2) {
-    const columns = activeDataset.content.columnNames
+  if (view === 1) {
+    const df: DataFrame = dataframe
+    const columns = df.getColumns()
+    console.log('columns', columns)
     return (
       <ChartSetOptionsView
         setView={setView}
         columns={columns}
-        dataframe={activeDataset}
+        dataframe={dataframe}
         setChartConfig={setChartConfig}
       />
     )

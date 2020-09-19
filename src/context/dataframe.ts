@@ -1,11 +1,11 @@
 import React from 'react'
 import { DataFrame } from 'data-forge'
 
-type ActiveDataframeType = {
-  dataframe: string
-  setDataframe: any
-}
+type ActiveDataframeType = DataFrame | any
 
-const ActiveDataframe = React.createContext<any>(['', () => {}])
+const ActiveDataframe = React.createContext<ActiveDataframeType[]>([
+  '',
+  () => {},
+])
 
 export default ActiveDataframe

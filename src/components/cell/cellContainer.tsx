@@ -11,13 +11,15 @@ type CellContainerProps = {
 
 const CellContainerStyle = styled.div`
   width: 85vw;
-  min-height: 33vh;
+  min-height: 264px;
+  height: 33vh;
   border: 1px solid black;
   overflow: hidden;
   border: 2px solid grey;
   margin: auto;
   margin-top: 2em;
   margin-bottom: 2em;
+  display: flex;
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -30,6 +32,12 @@ const CellContainerStyle = styled.div`
   }
 `
 
+const CellStyle = styled.div<any>`
+  height: 100%;
+  background-color: ${(props) => props.bg || '#b9f4bc'};
+  width: ${(props) => props.width || '50%'};
+`
+
 /**
  *
  * THOUGHTS: Turn this into a `Class` components instead to better handle the constructor?
@@ -38,13 +46,28 @@ const CellContainerStyle = styled.div`
 const CellContainer: FunctionComponent<CellContainerProps> = ({
   allSavedFiles,
 }) => {
-  const [addedFiles, addFile] = useState([])
-  const [fileId, setActiveId] = useState(null)
-  const [activeDataset, editActiveDataset] = useState(null)
   const [chartConfig, setChartConfig] = useState<ChartConfig | null>(null)
 
   // Hook that sets the dataframe context (pass it as the value of the provider to get the setFunctin working)
   const dataframeHook = useState(null)
+  console.log('df hook!', dataframeHook)
+  const dataCellWidth = () => {
+    if (!dataframeHook[0]) {
+      return '67%'
+    } else if (dataframeHook[0] && !chartConfig) {
+      return '67%'
+    } else {
+      return '50%'
+    }
+  }
+
+  const chartCellWidth = () => {
+    if (!chartConfig) {
+      return '33%'
+    } else {
+      return '50%'
+    }
+  }
 
   const chartCSS = chartConfig
     ? 'chart-view flex-grow md:w-4/5'
@@ -56,22 +79,20 @@ const CellContainer: FunctionComponent<CellContainerProps> = ({
   return (
     <CellContainerStyle className='cell-container bg-light-green md:flex my-4 mx-auto overflow-hidden flex-column'>
       <ActiveDataframe.Provider value={dataframeHook}>
-        <div className={dataCSS}>
-          <DataViewContainer
-            allSavedFiles={allSavedFiles}
-            activeDataset={activeDataset}
-            editActiveDataset={editActiveDataset}
-            setActiveId={setActiveId}
-            id={fileId}
-          />
-        </div>
-        <div className={chartCSS}>
+        <CellStyle
+          className='data-view bg-white'
+          bg={'#ffffff'}
+          width={dataCellWidth()}
+        >
+          <DataViewContainer allSavedFiles={allSavedFiles} />
+        </CellStyle>
+        <CellStyle className='chart-view' width={chartCellWidth()}>
           <ChartContainer
             chartConfig={chartConfig}
             setChartConfig={setChartConfig}
-            activeDataset={activeDataset}
+            width={chartCellWidth()}
           />
-        </div>
+        </CellStyle>
       </ActiveDataframe.Provider>
     </CellContainerStyle>
   )

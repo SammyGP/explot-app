@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useState, useContext } from 'react'
 import styled from 'styled-components'
 import readAndUploadFile from '../../../utils/filereader'
-import { DataFrame } from 'data-forge'
 import ActiveDataframe from '../../../context/dataframe'
 //import { FileUpload, Button } from '@patternfly/react-core'
 //import { Dataset } from '../../../types'
 
-const FileInfoStyler = styled.div`
+const FileInfoStyle = styled.div`
   border: 1px solid black;
   width: 200px;
   height: 200px;
@@ -14,12 +13,16 @@ const FileInfoStyler = styled.div`
   margin-top: 2em;
   margin-bottom: 2em;
 `
+const DataAddFileStyle = styled.div<any>`
+  width: 100%;
+  padding-top: 1.5em;
+`
 
-const DataAddFileView: FunctionComponent = () => {
+const DataAddFileView: FunctionComponent<any> = () => {
   const [file, setFile] = useState<File | null>(null)
-  //const [dataframe, setDataframe] = useState<null | DataFrame>(null)
   const [error, throwError] = useState<null | Error>(null)
 
+  // This will set the `context` dataframe to be the result of the SetDataframe function
   const [dataframe, setDataframe] = useContext(ActiveDataframe)
 
   if (error) {
@@ -33,7 +36,7 @@ const DataAddFileView: FunctionComponent = () => {
   }
 
   return (
-    <div>
+    <DataAddFileStyle>
       <form>
         <input
           type='file'
@@ -45,25 +48,28 @@ const DataAddFileView: FunctionComponent = () => {
           }}
         />
       </form>
-      <FileInfoStyler>
-        <h2>{file?.name}</h2>
-        <p>{file?.size}</p>
-        <p>{file?.type}</p>
-        <button onClick={() => setFile(null)}>Clear</button>
-        <button
-          onClick={() => {
-            // do the file parsing here
-            if (file) {
-              readAndUploadFile(file)
-                .then((res) => setDataframe(res))
-                .catch((e) => throwError(e))
-            }
-          }}
-        >
-          Upload
-        </button>
-      </FileInfoStyler>
-    </div>
+      {file ? (
+        <FileInfoStyle>
+          <h2>{file?.name}</h2>
+          <p>{file?.size}</p>
+          <p>{file?.type}</p>
+          <p>{file?.lastModified}</p>
+          <button onClick={() => setFile(null)}>Clear</button>
+          <button
+            onClick={() => {
+              // do the file parsing here
+              if (file) {
+                readAndUploadFile(file)
+                  .then((res) => setDataframe(res))
+                  .catch((e) => throwError(e))
+              }
+            }}
+          >
+            Upload
+          </button>
+        </FileInfoStyle>
+      ) : null}
+    </DataAddFileStyle>
   )
 }
 

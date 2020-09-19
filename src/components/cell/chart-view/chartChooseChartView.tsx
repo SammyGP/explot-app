@@ -76,7 +76,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
             className='mx-auto cursor-pointer'
             onClick={() => {
               setChartType(chart.type)
-              setView(2)
+              setView(1)
             }}
           >
             {chart.icon}

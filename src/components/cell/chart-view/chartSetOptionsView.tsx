@@ -3,16 +3,16 @@ import { XAxis32, YAxis32, ZAxis32, PlayOutline32 } from '@carbon/icons-react'
 import { validateColumn } from '../../../utils/validator'
 import { prepareOptions } from '../../../utils/transformer'
 import { Options } from '../../../types/types'
+import { DataFrame } from 'data-forge'
 
-const GroupTab = ({}) => {
-  return (
-    <div>
-      <h3>Coming Soon</h3>
-    </div>
-  )
+type ChartOptionsProps = {
+  columns: any
+  setChartConfig: any
+  setView: any
+  dataframe: DataFrame
 }
 
-const ChartSetOptionsView: FunctionComponent<any> = ({
+const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
   columns,
   setChartConfig,
   setView,
@@ -29,11 +29,11 @@ const ChartSetOptionsView: FunctionComponent<any> = ({
   }
 
   // Axes intpu
-  const [xAxis, setXAxis] = useState(columns[0])
+  const [xAxis, setXAxis] = useState(dataframe.getColumnNames()[0])
   const handleXAxisChange = (e: any) => {
     setXAxis(e.target.value)
   }
-  const [yAxis, setYAxis] = useState(columns[0])
+  const [yAxis, setYAxis] = useState(dataframe.getColumnNames()[1])
   const handleYAxisChange = (e: any) => {
     setYAxis(e.target.value)
   }
@@ -90,7 +90,7 @@ const ChartSetOptionsView: FunctionComponent<any> = ({
             value={xAxis}
             onChange={handleXAxisChange}
           >
-            {columns.map((col: any) => (
+            {dataframe.getColumnNames().map((col: any) => (
               <option value={col}>{col}</option>
             ))}
           </select>
@@ -107,7 +107,7 @@ const ChartSetOptionsView: FunctionComponent<any> = ({
               value={yAxis}
               onChange={handleYAxisChange}
             >
-              {columns.map((col: any) => (
+              {dataframe.getColumnNames().map((col: any) => (
                 <option value={col}>{col}</option>
               ))}
             </select>

@@ -1,9 +1,14 @@
 import React, { useState, FunctionComponent, useContext } from 'react'
+import styled from 'styled-components'
 import DataAddFileView from './dataAddFileView'
 import DataViewFilesView from './dataViewFilesView'
 import DataTableView from './dataTableView'
 import Loading from '../../loading'
 import ActiveDataframe from '../../../context/dataframe'
+
+const TableView = styled.div`
+  width: 100vw;
+`
 
 const DataViewContainer: FunctionComponent<any> = () => {
   const [view, setView] = useState(0)
