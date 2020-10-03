@@ -12,6 +12,7 @@ import {
   ChartHistogram32,
   ChartStacked32,
 } from '@carbon/icons-react'
+import styled from 'styled-components'
 
 const allCharts = [
   {
@@ -63,6 +64,11 @@ const futureCharts = [
   },
 ]
 
+const ChartIconContainerStyle = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+`
+
 const ChartChooseChartView: FunctionComponent<any> = ({
   setView,
   setChartType,
@@ -70,7 +76,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
   return (
     <div className='h-full flex flex-col'>
       <h2 className='text-center pt-4'>Choose a chart type</h2>
-      <div className='grid grid-cols-4 gap-4 mt-4'>
+      <ChartIconContainerStyle className='grid grid-cols-4 gap-4 mt-4'>
         {allCharts.map((chart) => (
           <div
             className='mx-auto cursor-pointer'
@@ -83,11 +89,14 @@ const ChartChooseChartView: FunctionComponent<any> = ({
           </div>
         ))}
         {futureCharts.map((chart) => (
-          <div className='mx-auto cursor-not-allowed opacity-50'>
+          <div
+            className='mx-auto cursor-not-allowed opacity-50'
+            style={{ opacity: 0.5, cursor: 'not-allowed' }}
+          >
             {chart.icon}
           </div>
         ))}
-      </div>
+      </ChartIconContainerStyle>
     </div>
   )
 }

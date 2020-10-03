@@ -33,3 +33,8 @@
      replaced by the `table nav`
 
 4. Table Nav
+
+### Todo
+
+1. Finish file upload
+   - style file info
