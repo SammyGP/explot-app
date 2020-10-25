@@ -71,7 +71,9 @@ const DataAddFileView: FunctionComponent<any> = () => {
         {!file ? (
           showUpload ? (
             <>
-              <h2>Choose a File to upload</h2>
+              <h2>
+                Choose a <code>CSV</code> File to upload
+              </h2>
               <input
                 type='file'
                 accept='.csv'

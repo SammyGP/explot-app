@@ -13,6 +13,12 @@ const Navbar = styled.nav<any>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h2 {
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
   div {
     margin: 1rem 1rem;
     display: inline;
@@ -33,7 +39,9 @@ const Nav = () => {
         {firebase.isLoggedIn() && <Button secondary>Feedback</Button>}
       </div>
       <h2>
-        Explot - <code>Beta</code>
+        <Link to='/'>
+          Explot - <code>Beta</code>
+        </Link>
       </h2>
       <div>
         {firebase.isLoggedIn() ? (

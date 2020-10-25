@@ -17,8 +17,8 @@ const CellContainerStyle = styled.div`
   overflow: hidden;
   border: 2px solid grey;
   margin: auto;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: flex;
   ::-webkit-scrollbar {
     width: 8px;

@@ -11,10 +11,14 @@ const Form: FunctionComponent<any> = ({ toggleForm }) => {
       <div>
         <h3>Getting Started</h3>
         <p>
-          Start by uploading a <code>CSV</code> file of your choice. <br />
+          Start by uploading a <code>CSV</code> file of your choice.
+        </p>
+        <p>
           Once its Uploaded you will see a table of all the properties of the
           file on the left side and a view of the available charts on the right
-          side, pick a chart from the icons. <br />
+          side, pick a chart from the icons.
+        </p>
+        <p>
           Once you have chosen a chart you need to specify what the{' '}
           <code>axi</code> of the chart will be (X and Y). You will also need to
           aggregate the data somehow (by max, min average and so on). Be wary

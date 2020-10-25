@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/authContext'
 import firebase from '../../firebase'
+import Form from '../generic/form'
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -32,19 +33,22 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <Form>
       <form
         onSubmit={(e) => {
           e.preventDefault()
           onLogin()
         }}
       >
+        {' '}
+        <h2>Sign In</h2>
         <div>
           <label>E-mail</label>
           <input
             type='email'
             name='email'
             value={user.email}
+            placeholder={'Your E-mai'}
             onChange={handleChange}
           />
         </div>
@@ -54,12 +58,13 @@ const Login = () => {
             type='password'
             name='password'
             value={user.password}
+            placeholder={'Your Password'}
             onChange={handleChange}
           />
         </div>
         <input type='submit' value='login' />
       </form>
-    </div>
+    </Form>
   )
 }
 

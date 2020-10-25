@@ -1,35 +1,24 @@
 import React, { useState } from 'react'
 import CellContainer from './cell/cellContainer'
 import { Add32 } from '@carbon/icons-react'
+import styled from 'styled-components'
 /**
  * Parent container to all the `Cell`s sends down all the File objects to the childs
  */
+
+const Container = styled.div`
+  margin-top: 3rem;
+`
+
 const WorkSheet = () => {
   const savedFiles: any[] = []
-  /**
-   * gets the url of all previously saved files that existed during build time with the csv format
-   */
-  /*const savedFiles = useStaticQuery(
-    graphql`
-      query MyQuery {
-        allFile(filter: { extension: { eq: "csv" } }) {
-          edges {
-            node {
-              id
-              publicURL
-              name
-            }
-          }
-        }
-      }
-    `
-  )*/
+
   const [allSavedFiles, addSavedFile] = useState([...savedFiles])
   const [cells, addCell] = useState([
     <CellContainer allSavedFiles={allSavedFiles} key={`cell-${1}`} />,
   ])
   return (
-    <div className='mt-8'>
+    <Container>
       <ul>{cells}</ul>
       <div className='w-full text-center text-gray-700'>
         <Add32
@@ -51,7 +40,7 @@ const WorkSheet = () => {
         />
         Add Cell
       </div>
-    </div>
+    </Container>
   )
 }
 

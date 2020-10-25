@@ -4,6 +4,7 @@ import AuthContext from '../../context/authContext'
 import ActiveUser from '../../context/authContext'
 import UserContext from '../../context/userContext'
 import firebase from '../../firebase'
+import Form from '../generic/form'
 import Nav from '../nav'
 
 // Here we only want to signup the user
@@ -41,19 +42,20 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <Form>
       <form
         onSubmit={(e) => {
           e.preventDefault()
           onRegister()
         }}
       >
-        <label htmlFor='form-user-name'>Username</label>
+        <h2>Register a new account</h2>
+        <label htmlFor='form-user-name'>Name</label>
         <input
           type='text'
           id='from-user-name'
           name='name'
-          placeholder='Username'
+          placeholder='Your Name'
           onChange={handleChange}
           value={user.name}
           required
@@ -63,7 +65,7 @@ const Signup = () => {
           type='email'
           id='from-user-email'
           name='email'
-          placeholder='Your e-mail Here'
+          placeholder='Your e-mail'
           onChange={handleChange}
           value={user.email}
           required
@@ -82,7 +84,7 @@ const Signup = () => {
 
         <input type='submit' />
       </form>
-    </div>
+    </Form>
   )
 }
 
