@@ -38,3 +38,4 @@
 
 1. Finish file upload
    - style file info
+2. Add icon of chosen chart on chartSetoptions so that they know the type

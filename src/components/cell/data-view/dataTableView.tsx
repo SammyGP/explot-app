@@ -9,6 +9,7 @@ const TableNavStyle = styled.nav<any>`
   min-height: 32px;
   max-height: 20%;
   height: ${(props) => (props.toggled ? '20px' : '10px')};
+  background-color: #1bb978;
   cursor: not-allowed;
 `
 
@@ -22,17 +23,17 @@ const DataTableView: FunctionComponent<any> = ({ dataset }) => {
   })
   return (
     <div>
-      <TableNavStyle toggled={isOpen} title='under construction'>
+      {/*<TableNavStyle toggled={isOpen} title='under construction'>
         {isOpen ? (
           <ul>
-            <RowExpand32 />
+            <RowExpand32 /> Table Tools
           </ul>
         ) : (
           <ul>
-            <RowExpand32 />
+            <RowExpand32 /> Table Tools
           </ul>
         )}
-      </TableNavStyle>
+      </TableNavStyle>*/}
       <DataTable
         fixedHeader={true}
         columns={columns}

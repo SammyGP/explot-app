@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState, useContext } from 'react'
 import styled from 'styled-components'
-import { DocumentAdd32 } from '@carbon/icons-react'
+import { DocumentAdd32, Csv32 } from '@carbon/icons-react'
+import Button from '../../generic/button'
 import readAndUploadFile from '../../../utils/filereader'
 import ActiveDataframe from '../../../context/dataframe'
 //import { FileUpload, Button } from '@patternfly/react-core'
@@ -30,28 +31,6 @@ const DataAddFileStyle = styled.div<any>`
   }
   overflow: auto;
   svg:hover {
-    transform: scale(1.1);
-  }
-`
-
-const Button = styled.button<any>`
-  background-color: ${(props) => (props.primary ? '#1bb978' : '#fff')};
-  border-color: #1bb978;
-  border-width: 4px;
-  border-radius: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  color: ${(props) => (props.primary ? '#fff' : '#000000')};
-  justify-content: center;
-  align-items: center;
-  line-height: 1.5rem;
-  font-size: 1.125rem;
-  margin: 0 1em 0 1em;
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     transform: scale(1.1);
   }
 `
@@ -116,6 +95,7 @@ const DataAddFileView: FunctionComponent<any> = () => {
           )
         ) : (
           <FileInfoStyle>
+            <Csv32 />
             <ul>
               <li>
                 Name: <span>{file?.name}</span>

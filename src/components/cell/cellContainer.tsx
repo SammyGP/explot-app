@@ -50,7 +50,6 @@ const CellContainer: FunctionComponent<CellContainerProps> = ({
 
   // Hook that sets the dataframe context (pass it as the value of the provider to get the setFunctin working)
   const dataframeHook = useState(null)
-  console.log('df hook!', dataframeHook)
   const dataCellWidth = () => {
     if (!dataframeHook[0]) {
       return '67%'
