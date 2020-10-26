@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import * as df from 'data-forge'
 import DataTable from 'react-data-table-component'
 import styled from 'styled-components'
@@ -13,11 +13,30 @@ const TableNavStyle = styled.nav<any>`
   cursor: not-allowed;
 `
 
-const DataTableView: FunctionComponent<any> = ({ dataset }) => {
-  const [isOpen, toggle] = useState(false)
-  const jsonData = new df.DataFrame(dataset).toJSON()
-  const data = JSON.parse(jsonData)
+const Table = styled(DataTable)`
+  .rdt_TableCol {
+    font-size: 1rem;
+  }
+  .rdt_TableCell {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+`
 
+const DataTableView: FunctionComponent<{ dataframe: df.DataFrame }> = ({
+  dataframe,
+}) => {
+  // Only get the 100 first rows
+  const [data, setData] = useState(dataframe.endAt(99).toArray())
+  const [isOpen, toggle] = useState(false)
+  useEffect(() => {
+    // Use this to split it into chunks of 100
+    //const dfSplit = dataframe.window(99)
+    //setData(jsonData)
+  }, [])
+  if (!data) {
+    return <h1>No Data</h1>
+  }
   const columns = Object.keys(data[0]).map((item) => {
     return { name: item, selector: item }
   })
@@ -34,12 +53,8 @@ const DataTableView: FunctionComponent<any> = ({ dataset }) => {
           </ul>
         )}
       </TableNavStyle>*/}
-      <DataTable
-        fixedHeader={true}
-        columns={columns}
-        data={data}
-        dense={true}
-      />
+      <span>Info span</span>
+      <Table fixedHeader={true} columns={columns} data={data} dense={true} />
     </div>
   )
 }

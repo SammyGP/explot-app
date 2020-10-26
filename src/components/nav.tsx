@@ -37,6 +37,16 @@ const Nav = () => {
           <Logo height='32px' width='32px' />
         </Link>
         {firebase.isLoggedIn() && <Button secondary>Feedback</Button>}
+        {firebase.isLoggedIn() && (
+          <Button>
+            <Link to='/readme'>Readme</Link>
+          </Button>
+        )}
+        {firebase.isLoggedIn() && (
+          <Button>
+            <Link to='/'>Beta</Link>
+          </Button>
+        )}
       </div>
       <h2>
         <Link to='/'>

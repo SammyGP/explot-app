@@ -9,6 +9,23 @@ import styled from 'styled-components'
 const Container = styled.div`
   margin-top: 3rem;
 `
+const CellAdder = styled.div`
+  width: 100%;
+  text-align: center;
+  color: #4a5568;
+  svg {
+    display: block;
+    height: 3rem;
+    width: 3rem;
+    margin: auto;
+    border-radius: 9999px;
+    &:hover {
+      box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+        0 18px 36px -18px rgba(0, 0, 0, 0.3),
+        0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    }
+  }
+`
 
 const WorkSheet = () => {
   const savedFiles: any[] = []
@@ -20,7 +37,7 @@ const WorkSheet = () => {
   return (
     <Container>
       <ul>{cells}</ul>
-      <div className='w-full text-center text-gray-700'>
+      <CellAdder>
         <Add32
           className='h-12 w-12 mx-auto rounded-full hover:shadow-custom'
           onClick={() => {
@@ -39,7 +56,7 @@ const WorkSheet = () => {
           }}
         />
         Add Cell
-      </div>
+      </CellAdder>
     </Container>
   )
 }

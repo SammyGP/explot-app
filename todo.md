@@ -34,8 +34,10 @@
 
 4. Table Nav
 
-### Todo
+### Todo Before beta
 
 1. Finish file upload
    - style file info
+   - `ISSUE` when uploading bigger files the `DataTableView` takes longer than
+     average time to load. Research the problem with how it renders
 2. Add icon of chosen chart on chartSetoptions so that they know the type

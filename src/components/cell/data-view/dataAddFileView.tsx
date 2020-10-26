@@ -116,8 +116,16 @@ const DataAddFileView: FunctionComponent<any> = () => {
               onClick={() => {
                 // do the file parsing here
                 if (file) {
+                  console.log('reading file')
                   readAndUploadFile(file)
-                    .then((res) => setDataframe(res))
+                    .then((res) => {
+                      console.log('setting the dataframe')
+                      //@ts-ignore
+                      setDataframe((prev) => {
+                        console.log('setting it from the inside')
+                        return res
+                      })
+                    })
                     .catch((e) => throwError(e))
                 }
               }}

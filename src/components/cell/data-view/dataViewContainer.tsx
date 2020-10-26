@@ -27,7 +27,8 @@ const DataViewContainer: FunctionComponent<any> = () => {
     )
   }*/
   if (dataframe) {
-    return <DataTableView dataset={dataframe} />
+    console.log('now we got a dataset')
+    return <DataTableView dataframe={dataframe} />
   }
   return <Loading />
 }

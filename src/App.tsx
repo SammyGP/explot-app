@@ -19,6 +19,7 @@ import Signup from './components/user/signup'
 import AuthContext from './context/authContext'
 import Login from './components/user/login'
 import Workspace from './workspace'
+import Readme from './readme'
 
 const PrivateRoute: FunctionComponent<any> = ({
   children,
@@ -76,9 +77,7 @@ function App() {
   const [activeUser, setUser] = useState<any>(null)
 
   firebase.auth.onAuthStateChanged((user) => {
-    console.log('status change', user)
     if (user && !activeUser) {
-      console.log('setting user')
       setUser(user)
     }
     if (!user) {
@@ -91,8 +90,8 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path='/signup' component={Signup} />
-
           <Route exact path='/login' component={Login} />
+          <Route exact path='/readme' component={Readme} />
           <Route exact path='/'>
             {activeUser ? (
               <Workspace user={activeUser} />

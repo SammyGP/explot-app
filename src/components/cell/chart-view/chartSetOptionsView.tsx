@@ -4,6 +4,7 @@ import { validateColumn } from '../../../utils/validator'
 import { prepareOptions } from '../../../utils/transformer'
 import { Options } from '../../../types/types'
 import { DataFrame } from 'data-forge'
+import styled from 'styled-components'
 
 type ChartOptionsProps = {
   columns: any
@@ -11,6 +12,61 @@ type ChartOptionsProps = {
   setView: any
   dataframe: DataFrame
 }
+
+const ChartOptions = styled.div``
+
+const XAxis = styled.div`
+  display: flex;
+  padding: 0.5rem;
+  label {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+  select {
+    display: block;
+  }
+`
+const YAxis = styled.div`
+  padding: 0.5rem;
+  div {
+    display: flex;
+  }
+  label {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+  select {
+    display: block;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+  }
+`
+const Submit = styled.div`
+  width: 80%;
+  margin: auto;
+  padding: 0.5rem;
+  text-align: center;
+  button {
+    display: flex;
+    cursor: pointer;
+    appearance: none;
+    margin: auto;
+    border: none;
+    background-color: inherit;
+    outline: none;
+    &:hover {
+      transform: scale(1.05);
+    }
+    span {
+      height: 100%;
+      margin: auto;
+      margin-left: 0.5rem;
+    }
+  }
+`
 
 const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
   columns,
@@ -39,7 +95,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
   }
 
   return (
-    <div className='h-full w-full'>
+    <div className='h-full w-full' style={{ overflowY: 'auto' }}>
       {/*<nav> NO nav for now
         <ul className="flex">
           <li onClick={() => setTab(0)}>Dimension</li>
@@ -82,7 +138,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
         {/**
          * X Axis
          */}
-        <div className='flex p-4'>
+        <XAxis>
           <XAxis32 />
           <label className='mx-2'>Set X axis</label>
           <select
@@ -94,11 +150,11 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
               <option value={col}>{col}</option>
             ))}
           </select>
-        </div>
+        </XAxis>
         {/**
          * Y Axis
          */}
-        <div className='p-4'>
+        <YAxis className='p-4'>
           <div className='flex'>
             <YAxis32 />
             <label className='mx-2'>Set Y axis</label>
@@ -194,15 +250,15 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
               <label>none</label>
             </li>
           </ul>
-        </div>
-        <div className='w-full text-center'>
+        </YAxis>
+        <Submit>
           <button
             className='shadow-custom mx-auto w-8 h-8 text-center shadow focus:outline-none'
             type='submit'
           >
-            <PlayOutline32 />
+            <PlayOutline32 /> <span>Continue</span>
           </button>
-        </div>
+        </Submit>
       </form>
     </div>
   )

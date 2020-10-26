@@ -79,6 +79,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
       <ChartIconContainerStyle className='grid grid-cols-4 gap-4 mt-4'>
         {allCharts.map((chart) => (
           <div
+            key={`chart-type:${chart.type}`}
             className='mx-auto cursor-pointer'
             onClick={() => {
               setChartType(chart.type)
@@ -90,6 +91,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
         ))}
         {futureCharts.map((chart) => (
           <div
+            key={`chart-type:${chart.type}`}
             className='mx-auto cursor-not-allowed opacity-50'
             style={{ opacity: 0.5, cursor: 'not-allowed' }}
           >

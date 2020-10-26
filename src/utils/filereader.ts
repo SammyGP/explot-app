@@ -8,6 +8,7 @@ const readAndUploadFile = async (file: File): Promise<dataforge.DataFrame> => {
       const dataframe = dataforge.fromCSV(result, {
         dynamicTyping: true,
       })
+      console.log('DONE reading! from filereader')
       resolve(dataframe)
     }
 
@@ -15,7 +16,7 @@ const readAndUploadFile = async (file: File): Promise<dataforge.DataFrame> => {
       reader.abort()
       throw new Error('Error reading file')
     }
-
+    console.log('starting the reader')
     reader.readAsText(file)
   })
 }
