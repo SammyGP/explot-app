@@ -1,4 +1,4 @@
-import { DataFrame } from "data-forge"
+import { DataFrame } from 'data-forge'
 
 export interface ChartOptions {
   dataset: ChartData
@@ -20,6 +20,11 @@ export type Series = {
 export type ChartData = {
   dimension: string[]
   source: any[]
+}
+
+export type ChartType = {
+  icon: JSX.Element
+  type: string
 }
 
 export type Dataset = {

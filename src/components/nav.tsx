@@ -44,7 +44,7 @@ const Nav = () => {
         )}
         {firebase.isLoggedIn() && (
           <Button>
-            <Link to='/'>Beta</Link>
+            <Link to='/'>App</Link>
           </Button>
         )}
       </div>

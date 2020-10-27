@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import * as df from 'data-forge'
 import DataTable from 'react-data-table-component'
 import styled from 'styled-components'
-import { RowExpand32 } from '@carbon/icons-react'
+import { Chemistry32 } from '@carbon/icons-react'
 
 const TableNavStyle = styled.nav<any>`
   width: 100%;
@@ -14,6 +14,10 @@ const TableNavStyle = styled.nav<any>`
 `
 
 const Table = styled(DataTable)`
+  // Disable header for now since we have no content there
+  .rdt_TableHeader {
+    min-height: 0;
+  }
   .rdt_TableCol {
     font-size: 1rem;
   }
@@ -27,8 +31,10 @@ const DataTableView: FunctionComponent<{ dataframe: df.DataFrame }> = ({
   dataframe,
 }) => {
   // Only get the 100 first rows
+  // useMemo and https://github.com/bvaughn/react-window to make it more effiecient later
   const [data, setData] = useState(dataframe.endAt(99).toArray())
   const [isOpen, toggle] = useState(false)
+  const [dataTypes, setDataTypes] = useState(dataframe.detectTypes().toArray())
   useEffect(() => {
     // Use this to split it into chunks of 100
     //const dfSplit = dataframe.window(99)
@@ -53,7 +59,10 @@ const DataTableView: FunctionComponent<{ dataframe: df.DataFrame }> = ({
           </ul>
         )}
       </TableNavStyle>*/}
-      <span>Info span</span>
+      <span>
+        <Chemistry32 /> The first: <code>100</code> rows from the file (all will
+        be used in the chart)
+      </span>
       <Table fixedHeader={true} columns={columns} data={data} dense={true} />
     </div>
   )

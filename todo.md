@@ -36,8 +36,17 @@
 
 ### Todo Before beta
 
-1. Finish file upload
-   - style file info
-   - `ISSUE` when uploading bigger files the `DataTableView` takes longer than
-     average time to load. Research the problem with how it renders
+1. Finish file upload - `done`
+   - style file info - `done`
+   - `ISSUE` when uploading bigger files the `DataTableView` takes longer than -
+     `done` average time to load. Research the problem with how it renders
 2. Add icon of chosen chart on chartSetoptions so that they know the type
+3. Style Table Header - Show file info, such as total rows etc
+4. Add headers for the chart
+5. Prevent sumbitting to big files! > 50mb at first
+6. New glyphicon
+
+// Future
+
+5. Add empty UI for the data manipulation part
+6. Validate X/Y axis selection before goint to chart

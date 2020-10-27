@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import {
   ChartArea32,
-  ChartBar32,
+  ChartColumn32,
   ChartBubble32,
   ChartLineData32,
   ChartPie32,
@@ -13,15 +13,16 @@ import {
   ChartStacked32,
 } from '@carbon/icons-react'
 import styled from 'styled-components'
+import { ChartType } from '../../../types/types'
 
-const allCharts = [
+export const allCharts: ChartType[] = [
   {
     type: 'line',
     icon: <ChartLineData32 />,
   },
   {
     type: 'bar',
-    icon: <ChartBar32 />,
+    icon: <ChartColumn32 />,
   },
   {
     type: 'scatter',
@@ -82,7 +83,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
             key={`chart-type:${chart.type}`}
             className='mx-auto cursor-pointer'
             onClick={() => {
-              setChartType(chart.type)
+              setChartType(chart)
               setView(1)
             }}
           >

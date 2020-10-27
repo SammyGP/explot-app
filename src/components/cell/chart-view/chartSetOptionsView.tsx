@@ -2,15 +2,15 @@ import React, { useState, FunctionComponent } from 'react'
 import { XAxis32, YAxis32, ZAxis32, PlayOutline32 } from '@carbon/icons-react'
 import { validateColumn } from '../../../utils/validator'
 import { prepareOptions } from '../../../utils/transformer'
-import { Options } from '../../../types/types'
+import { ChartType, Options } from '../../../types/types'
 import { DataFrame } from 'data-forge'
 import styled from 'styled-components'
 
 type ChartOptionsProps = {
-  columns: any
   setChartConfig: any
   setView: any
   dataframe: DataFrame
+  chartType: ChartType
 }
 
 const ChartOptions = styled.div``
@@ -44,6 +44,24 @@ const YAxis = styled.div`
     grid-template-columns: auto auto auto auto;
   }
 `
+
+const Container = styled.div`
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  h3 {
+    margin: 0;
+  }
+  span {
+    width: 100%;
+    display: block;
+    text-align: left;
+    svg {
+      padding-left: 0.5rem;
+    }
+  }
+`
+
 const Submit = styled.div`
   width: 80%;
   margin: auto;
@@ -69,10 +87,10 @@ const Submit = styled.div`
 `
 
 const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
-  columns,
   setChartConfig,
   setView,
   dataframe,
+  chartType,
 }) => {
   const [loading, setLoading] = useState(false)
   //const [tab, setTab] = useState(0)
@@ -84,7 +102,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
     setRadioState(e.target.value)
   }
 
-  // Axes intpu
+  // Axes input
   const [xAxis, setXAxis] = useState(dataframe.getColumnNames()[0])
   const handleXAxisChange = (e: any) => {
     setXAxis(e.target.value)
@@ -95,7 +113,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
   }
 
   return (
-    <div className='h-full w-full' style={{ overflowY: 'auto' }}>
+    <Container>
       {/*<nav> NO nav for now
         <ul className="flex">
           <li onClick={() => setTab(0)}>Dimension</li>
@@ -103,7 +121,8 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
           <li onClick={() => setTab(2)}>Group</li>
         </ul>
       </nav>*/}
-      <h2 className='p-2'>Configure Chart Dimensions</h2>
+      <h3 className='p-2'>Configure Chart Dimensions</h3>
+      <span>{chartType.icon}</span>
       <form
         className='px-2 mx-auto'
         onSubmit={(e) => {
@@ -147,7 +166,9 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
             onChange={handleXAxisChange}
           >
             {dataframe.getColumnNames().map((col: any) => (
-              <option value={col}>{col}</option>
+              <option key={'option' + col} value={col}>
+                {col}
+              </option>
             ))}
           </select>
         </XAxis>
@@ -260,7 +281,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
           </button>
         </Submit>
       </form>
-    </div>
+    </Container>
   )
 }
 

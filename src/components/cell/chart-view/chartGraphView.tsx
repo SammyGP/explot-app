@@ -4,23 +4,27 @@ import LineChart from '../../charts/lineChart'
 import ScatterChart from '../../charts/scatterChart'
 import PieChart from '../../charts/pieChart'
 import { InformationFilled32 } from '@carbon/icons-react'
+import { ChartType } from '../../../types/types'
 
 /**
  * Renders the chart based on the @type
  */
-const ChartGraphView: FunctionComponent<any> = ({ chartConfig, type }) => {
+const ChartGraphView: FunctionComponent<{
+  chartConfig: any
+  chart: ChartType
+}> = ({ chartConfig, chart }) => {
   const [moreInfo, toggleMoreInfo] = useState(false)
-  const renderChart = (type: string) => {
-    if (type === 'bar') {
+  const renderChart = (chartType: string) => {
+    if (chartType === 'bar') {
       return <BarChart chartConfig={chartConfig} />
     }
-    if (type === 'line') {
+    if (chartType === 'line') {
       return <LineChart chartConfig={chartConfig} />
     }
-    if (type === 'scatter') {
+    if (chartType === 'scatter') {
       return <ScatterChart chartConfig={chartConfig} />
     }
-    if (type === 'pie') {
+    if (chartType === 'pie') {
       return <PieChart chartConfig={chartConfig} />
     }
     return <h2>Error</h2>
@@ -33,7 +37,7 @@ const ChartGraphView: FunctionComponent<any> = ({ chartConfig, type }) => {
         </div>
         {moreInfo ? (
           <div>
-            Chart Type:<code>{type}-chart</code> X Axis:
+            Chart Type:<code>{chart.type}-chart</code> X Axis:
             <u>{chartConfig.xAxis}</u> Y Axis: <u>{chartConfig.yAxis}</u>{' '}
             Aggregation: <b>{chartConfig.agg}</b>
           </div>
@@ -41,7 +45,7 @@ const ChartGraphView: FunctionComponent<any> = ({ chartConfig, type }) => {
           <div></div>
         )}
       </p>
-      {renderChart(type)}
+      {renderChart(chart.type)}
     </div>
   )
 }

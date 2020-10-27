@@ -1,4 +1,5 @@
 import React, { useState, FunctionComponent, useContext } from 'react'
+import { ChartLineData32 } from '@carbon/icons-react'
 import ChartChooseChartView from './chartChooseChartView'
 import ChartGraphView from './chartGraphView'
 import ChartSetOptionsView from './chartSetOptionsView'
@@ -6,6 +7,7 @@ import Loading from '../../loading'
 import ActiveDataframe from '../../../context/dataframe'
 import { DataFrame } from 'data-forge'
 import styled from 'styled-components'
+import { ChartType } from '../../../types/types'
 
 /**
  * Routes to the correct Chart
@@ -16,7 +18,10 @@ const ChartContainer: FunctionComponent<any> = ({
   width,
 }) => {
   const [view, setView] = useState(0)
-  const [chartType, setChartType] = useState(null)
+  const [chartType, setChartType] = useState<ChartType>({
+    type: 'line',
+    icon: <ChartLineData32 />,
+  })
   const [dataframe] = useContext(ActiveDataframe)
 
   if (!dataframe) {
@@ -42,15 +47,15 @@ const ChartContainer: FunctionComponent<any> = ({
     return (
       <ChartSetOptionsView
         setView={setView}
-        columns={columns}
         dataframe={dataframe}
         setChartConfig={setChartConfig}
+        chartType={chartType}
       />
     )
   }
   if (view === 3) {
     //const chartData = echartsDataPreparer(chartConfig)
-    return <ChartGraphView chartConfig={chartConfig} type={chartType} />
+    return <ChartGraphView chartConfig={chartConfig} chart={chartType} />
   }
 
   return <Loading />
