@@ -40,13 +40,19 @@
    - style file info - `done`
    - `ISSUE` when uploading bigger files the `DataTableView` takes longer than -
      `done` average time to load. Research the problem with how it renders
-2. Add icon of chosen chart on chartSetoptions so that they know the type
-3. Style Table Header - Show file info, such as total rows etc
-4. Add headers for the chart
-5. Prevent sumbitting to big files! > 50mb at first
-6. New glyphicon
+2. Add icon of chosen chart on chartSetoptions so that they know the type -
+   `done`
+3. Style Table Header - Show file info, such as total rows etc - `on hold`
+4. Add headers for the chart - `on hold`
+5. Prevent sumbitting to big files! > 50mb at first `done`
+6. Mixpanel, success tracking `done`
+7. Fix console logs (both logging and errors/issues)
+8. Load Indicators when: clicking <upload> data -> clicking <continue> on chart
+   options -> when <chart> is rendering
+9. New favicon `done`
+10. Feedback
 
 // Future
 
-5. Add empty UI for the data manipulation part
+5. Add empty UI for the data manipulation part (on dataTableView component)
 6. Validate X/Y axis selection before goint to chart

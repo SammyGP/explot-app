@@ -60,8 +60,8 @@ const DataTableView: FunctionComponent<{ dataframe: df.DataFrame }> = ({
         )}
       </TableNavStyle>*/}
       <span>
-        <Chemistry32 /> The first: <code>100</code> rows from the file (all will
-        be used in the chart)
+        Only showing the first: <code>100</code> rows from the file (all will be
+        used in the chart)
       </span>
       <Table fixedHeader={true} columns={columns} data={data} dense={true} />
     </div>

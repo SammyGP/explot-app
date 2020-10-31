@@ -1,4 +1,5 @@
 import * as Firebase from 'firebase'
+import mixpanel from 'mixpanel-browser'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCL53mo6ZAXjC9fHiJiAu5uWCkuYpWiV3U',
@@ -24,6 +25,16 @@ class firebase {
   }
 
   login(email: string, password: string) {
+    // identify loggen in user (anonimously)
+    const user = this.auth.currentUser
+    mixpanel.identify(this.auth.currentUser?.uid)
+    mixpanel.people.set({
+      $email: user?.email,
+      verified: user?.emailVerified,
+      create_date: user?.metadata.creationTime,
+      last_seen: user?.metadata.lastSignInTime,
+    })
+    mixpanel.track('logged_in')
     return this.auth.signInWithEmailAndPassword(email, password)
   }
 

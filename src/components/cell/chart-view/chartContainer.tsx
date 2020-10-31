@@ -41,9 +41,6 @@ const ChartContainer: FunctionComponent<any> = ({
     )
   }
   if (view === 1) {
-    const df: DataFrame = dataframe
-    const columns = df.getColumns()
-    console.log('columns', columns)
     return (
       <ChartSetOptionsView
         setView={setView}

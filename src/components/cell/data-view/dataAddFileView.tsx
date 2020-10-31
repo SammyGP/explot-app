@@ -4,6 +4,7 @@ import { DocumentAdd32, Csv32 } from '@carbon/icons-react'
 import Button from '../../generic/button'
 import readAndUploadFile from '../../../utils/filereader'
 import ActiveDataframe from '../../../context/dataframe'
+import mixpanel from 'mixpanel-browser'
 //import { FileUpload, Button } from '@patternfly/react-core'
 //import { Dataset } from '../../../types'
 
@@ -36,6 +37,7 @@ const DataAddFileStyle = styled.div<any>`
 `
 
 const DataAddFileView: FunctionComponent<any> = () => {
+  const [loading, setLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [error, throwError] = useState<null | Error>(null)
   const [showUpload, toggle] = useState(false)
@@ -116,21 +118,23 @@ const DataAddFileView: FunctionComponent<any> = () => {
               onClick={() => {
                 // do the file parsing here
                 if (file) {
-                  console.log('reading file')
+                  if (file.size >= 52428800) {
+                    alert(`File of ${getFileSize(file.size)} is too big`)
+                    return
+                  }
+                  mixpanel.track('uploaded_file', {
+                    size: getFileSize(file.size),
+                  })
+                  setLoading(!loading)
                   readAndUploadFile(file)
                     .then((res) => {
-                      console.log('setting the dataframe')
-                      //@ts-ignore
-                      setDataframe((prev) => {
-                        console.log('setting it from the inside')
-                        return res
-                      })
+                      setDataframe(res)
                     })
                     .catch((e) => throwError(e))
                 }
               }}
             >
-              Upload
+              {loading ? 'Loading' : 'Upload'}
             </Button>
           </FileInfoStyle>
         )}

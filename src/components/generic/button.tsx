@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const Button = styled.button<any>`
+  min-width: 1rem;
   appearance: none;
   background-color: ${(props) =>
     props.primary ? '#1bb978' : props.secondary ? '#1aaaff' : 'inherit'};

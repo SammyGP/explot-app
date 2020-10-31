@@ -1,56 +1,27 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from 'react-router-dom'
-import logo from './logo.svg'
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import mixpanel from 'mixpanel-browser'
 import './App.css'
 import './style/overrides.css'
 import firebase from './firebase'
-import WorkSheet from './components/workSheet'
-import Feedback from './components/feedback'
 import Nav from './components/nav'
-import Information from './components/information'
-import MobileDisclaimer from './components/mobileDisclaimer'
 import Signup from './components/user/signup'
-import AuthContext from './context/authContext'
 import Login from './components/user/login'
 import Workspace from './workspace'
 import Readme from './readme'
 
-const PrivateRoute: FunctionComponent<any> = ({
-  children,
-  authenticated,
-  ...rest
-}) => {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) => {
-        return firebase.auth.currentUser ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/signup',
-              state: { from: location },
-            }}
-          />
-        )
-      }}
-    />
-  )
-}
+mixpanel.init(
+  '65c097f9573764c7d98a0488e0e4ed33',
+  { api_host: 'https://api-eu.mixpanel.com' },
+  ''
+)
 
 const NotAuthWelcomeScreen = () => {
   return (
     <div style={{ width: '60%', margin: 'auto', textAlign: 'left' }}>
       <h2>Welcome To The First Beta Wave</h2>
       <p>
-        Explot is ready to be tried from real users and we hope you are
+        Explot is ready to be experience by real users and we hope you are
         interested in trying it out.
       </p>
       <p>
@@ -73,7 +44,6 @@ const NotAuthWelcomeScreen = () => {
 }
 
 function App() {
-  const [isLoggedIn, loggIn] = useState(false)
   const [activeUser, setUser] = useState<any>(null)
 
   firebase.auth.onAuthStateChanged((user) => {

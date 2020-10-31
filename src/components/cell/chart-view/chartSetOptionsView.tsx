@@ -5,6 +5,7 @@ import { prepareOptions } from '../../../utils/transformer'
 import { ChartType, Options } from '../../../types/types'
 import { DataFrame } from 'data-forge'
 import styled from 'styled-components'
+import mixpanel from 'mixpanel-browser'
 
 type ChartOptionsProps = {
   setChartConfig: any
@@ -127,11 +128,12 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
         className='px-2 mx-auto'
         onSubmit={(e) => {
           e.preventDefault()
+          mixpanel.track('chosen_chart_options')
           if (xAxis === yAxis || !xAxis || !yAxis) {
-            console.log("Can't choose both same axis for both")
+            alert("Can't choose same axis for both")
             return
           }
-
+          setLoading(!loading)
           const options: Options = {
             xAxis,
             yAxis,
@@ -185,7 +187,9 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
               onChange={handleYAxisChange}
             >
               {dataframe.getColumnNames().map((col: any) => (
-                <option value={col}>{col}</option>
+                <option key={'option' + col} value={col}>
+                  {col}
+                </option>
               ))}
             </select>
           </div>
@@ -277,7 +281,7 @@ const ChartSetOptionsView: FunctionComponent<ChartOptionsProps> = ({
             className='shadow-custom mx-auto w-8 h-8 text-center shadow focus:outline-none'
             type='submit'
           >
-            <PlayOutline32 /> <span>Continue</span>
+            <PlayOutline32 /> <span>{loading ? 'Loading' : 'Continue'}</span>
           </button>
         </Submit>
       </form>

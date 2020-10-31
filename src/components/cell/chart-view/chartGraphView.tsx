@@ -5,6 +5,7 @@ import ScatterChart from '../../charts/scatterChart'
 import PieChart from '../../charts/pieChart'
 import { InformationFilled32 } from '@carbon/icons-react'
 import { ChartType } from '../../../types/types'
+import mixpanel from 'mixpanel-browser'
 
 /**
  * Renders the chart based on the @type
@@ -14,6 +15,7 @@ const ChartGraphView: FunctionComponent<{
   chart: ChartType
 }> = ({ chartConfig, chart }) => {
   const [moreInfo, toggleMoreInfo] = useState(false)
+  mixpanel.track('rendered_chart')
   const renderChart = (chartType: string) => {
     if (chartType === 'bar') {
       return <BarChart chartConfig={chartConfig} />
@@ -32,17 +34,17 @@ const ChartGraphView: FunctionComponent<{
   return (
     <div className='m-auto'>
       <p className='text-left ml-8 pt-4 flex'>
-        <div className='pr-4' onClick={() => toggleMoreInfo(!moreInfo)}>
+        <span className='pr-4' onClick={() => toggleMoreInfo(!moreInfo)}>
           <InformationFilled32 />
-        </div>
+        </span>
         {moreInfo ? (
-          <div>
+          <span>
             Chart Type:<code>{chart.type}-chart</code> X Axis:
             <u>{chartConfig.xAxis}</u> Y Axis: <u>{chartConfig.yAxis}</u>{' '}
             Aggregation: <b>{chartConfig.agg}</b>
-          </div>
+          </span>
         ) : (
-          <div></div>
+          <span></span>
         )}
       </p>
       {renderChart(chart.type)}

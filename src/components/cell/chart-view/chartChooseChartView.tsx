@@ -14,6 +14,7 @@ import {
 } from '@carbon/icons-react'
 import styled from 'styled-components'
 import { ChartType } from '../../../types/types'
+import mixpanel from 'mixpanel-browser'
 
 export const allCharts: ChartType[] = [
   {
@@ -83,6 +84,7 @@ const ChartChooseChartView: FunctionComponent<any> = ({
             key={`chart-type:${chart.type}`}
             className='mx-auto cursor-pointer'
             onClick={() => {
+              mixpanel.track('chosen_chart', { chart_type: chart.type })
               setChartType(chart)
               setView(1)
             }}
