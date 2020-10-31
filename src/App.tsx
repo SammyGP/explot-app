@@ -22,7 +22,12 @@ const NotAuthWelcomeScreen = () => {
       <h2>Welcome To The First Beta Wave</h2>
       <p>
         Explot is ready to be experience by real users and we hope you are
-        interested in trying it out.
+        interested in trying it out. To learn more about what explot is and what
+        it does check out{' '}
+        <a target='_blank' href='https://www.explot.io/'>
+          this
+        </a>{' '}
+        page.
       </p>
       <p>
         Since its a beta most of the features are still not fully enabled (like
