@@ -4,7 +4,9 @@ Explore & Plot your data
 
 ## What is Explot
 
-Explot is a React app that allows you to visualize datasets in small individual "cells". By creating multiple cells side by side you can get an overview from a lot of different datasets
+Explot is a React app that allows you to visualize datasets in small individual "cells". By creating multiple cells side by side you can get an overview from a lot of different datasets.
+
+More info on the explot [website](https://explot.io/).
 
 ## Tech Stack
 
